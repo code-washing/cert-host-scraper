@@ -34,20 +34,20 @@ class Result:
 
 def fetch_site_information(url: str, timeout: int) -> int:
     try:
-        return requests.get(url, timeout=timeout).status_code
-    except Exception as e:
-        logger.debug(e)
-        return -1
+        return requests.get(url, timeout=timeout).status_code   
+    except Exception as e:  
+        logger.debug(e)  
+        return -1  
 
 
 async def async_fetch_site_information(url: str, timeout: int) -> int:
-    return await asyncio.to_thread(fetch_site_information, url, timeout)
+    return await asyncio.to_thread(fetch_site_information, url, timeout)  
 
 
 def fetch_site(search: str) -> List[Dict]:
-    url = f"https://crt.sh/?q={search}&output=json"
-    result = requests.get(url)
-    result.raise_for_status()
+    url = f"https://crt.sh/?q={search}&output=json" 
+    result = requests.get(url)  
+    result.raise_for_status()  
 
     return result.json()
 
@@ -57,12 +57,12 @@ def scrape_urls(results: List[Dict], options: Options) -> List[str]:
     for result in results:
         common_name = result["common_name"]
 
-        if options.clean and "*" in common_name:
-            continue
+        if options.clean and "*" in common_name:  
+            continue   
 
-        total_urls.append(f"https://{common_name}")
+        total_urls.append(f"https://{common_name}")   
 
-    return list(set(total_urls))
+    return list(set(total_urls))  
 
 
 def fetch_urls(site: str, options: Options) -> List[str]:
