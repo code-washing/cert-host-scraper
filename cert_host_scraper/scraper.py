@@ -47,20 +47,20 @@ async def async_fetch_site_information(url: str, timeout: int) -> int:
 def fetch_site(search: str) -> List[Dict]:
     url = f"https://crt.sh/?q={search}&output=json" 
     result = requests.get(url)  
-    result.raise_for_status()  
+    result.raise_for_status()    
 
     return result.json()
 
 
 def scrape_urls(results: List[Dict], options: Options) -> List[str]:
-    total_urls = []
-    for result in results:
-        common_name = result["common_name"]
+    total_urls = []  
+    for result in results:  
+        common_name = result["common_name"]  
 
-        if options.clean and "*" in common_name:  
-            continue   
+        if options.clean and "*" in common_name:    
+            continue     
 
-        total_urls.append(f"https://{common_name}")   
+        total_urls.append(f"https://{common_name}")     
 
     return list(set(total_urls))  
 
